@@ -85,11 +85,8 @@ void draw_trees(uint32_t fb) {
 
 void draw_snow(uint32_t fb) {
 
-	for (size_t i = 0; i < SNOW; i++) {
-		draw_pixmap(fb, snow[i].x, snow[i].y, snow[i].pixmap, snow[i].w,  snow[i].h, WHITE);
 
-	}
-	delay_ms(100);		
+
 	for (size_t i = 0; i < SNOW; i++) {
 		if (snow[i].y < HEIGHT-SNOW_DEPTH) { // Add some snow in the bottom of the screen
 			// Delete current snow flake (draw it in black). Not deleted if at screen bottom
@@ -110,7 +107,12 @@ void draw_snow(uint32_t fb) {
 		if (snow[i].y < 0) {
 			snow[i].y = 0;
 		}
-	}     
+	}
+	delay_ms(5);
+	for (size_t i = 0; i < SNOW; i++) {
+		draw_pixmap(fb, snow[i].x, snow[i].y, snow[i].pixmap, snow[i].w,  snow[i].h, WHITE);
+
+	}	
 }
 
 
@@ -191,11 +193,11 @@ void main() {
 
 	init_snow(20);
 	init_trees(10);
-
+	
 	while (1) {
 		draw_snow(fb);
 		draw_trees(fb);
-		delay_ms(10);		
+		delay_ms(80);		
 		draw_santa(fb, s_x,s_y);
 		s_x = (s_x +1) % WIDTH;
 	}
